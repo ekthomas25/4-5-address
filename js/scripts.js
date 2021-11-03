@@ -1,7 +1,7 @@
 // Business Logic for AddressBook ---------
 function AddressBook() {
   this.contacts = {};
-  this.currentID = 0;
+  this.currentId = 0;
 }
 
 AddressBook.prototype.addContact = function(contact) {
@@ -10,7 +10,7 @@ AddressBook.prototype.addContact = function(contact) {
 };
 
 AddressBook.prototype.assignID = function() {
-  this.currentID += 1;
+  this.currentId += 1;
   return this.currentID;
 };
 
@@ -40,3 +40,19 @@ Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 };
 
+
+// User Interface Logic ---------
+
+let addressBook = new AddressBook();
+
+$(document).ready(function() {
+  $("form#new-contact").submit(function(event) {
+    event.preventDefautl();
+    const inputtedFirstName = $("input#new-first-name").val();
+    const inputtedLastName = $("input#new-last-name").val();
+    const inputtedPhoneNumber = $("input#new-phone-number").val();
+    let newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber);
+    addressBook.addContact(newContact);
+    console.log(addressBook.contacts);
+  });
+});
